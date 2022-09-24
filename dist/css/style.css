@@ -1,0 +1,328 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Roboto", sans-serif;
+}
+
+#layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#layer.active {
+  display: block;
+}
+
+body {
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
+
+main {
+  height: 100vh;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+}
+
+header {
+  position: relative;
+  padding: 0 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+header #menu-btn {
+  background-color: transparent;
+  border: none;
+  color: rgb(11, 139, 43);
+  font-size: 30px;
+  cursor: pointer;
+}
+header #menu-btn:hover {
+  color: rgb(30, 187, 69);
+}
+header #menu {
+  position: absolute;
+  display: none;
+  padding: 0;
+  top: calc(100% + 20px);
+  left: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  z-index: 20;
+}
+header #menu.active {
+  display: block;
+}
+header #menu li {
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  width: 200px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+header #menu li:last-child {
+  border: none;
+}
+header #menu li:hover {
+  background-color: #eee;
+}
+
+#tasks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#tasks .task {
+  width: 50%;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 20px 0;
+  position: relative;
+}
+#tasks .task:nth-child(odd) {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+#tasks .task:nth-child(even) {
+  border-bottom: 1px solid #ccc;
+}
+#tasks .task h3 {
+  font-family: "Caveat", cursive;
+  font-size: 30px;
+}
+#tasks .task .copy-id {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  width: 25px;
+}
+#tasks .task .copy-id svg {
+  fill: #eee;
+  transition: 0.2s;
+}
+#tasks .task .copy-id:hover svg {
+  fill: #444;
+}
+#tasks .task .boxes {
+  display: flex;
+  overflow: hidden;
+  gap: 5px;
+  width: fit-content;
+  margin: 20px auto;
+  flex-wrap: wrap;
+  max-width: 265px;
+}
+#tasks .task .boxes .box {
+  border: 1px solid #ccc;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#tasks .task .boxes .box.checked {
+  background-image: url(../../imgs/checked.svg);
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#tasks .task .boxes .box:hover {
+  background-color: #eee;
+}
+
+.custom-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 10px;
+  display: none;
+  transition: 0.2s;
+}
+.custom-menu input {
+  width: 400px;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+.custom-menu button {
+  width: fit-content;
+  background-color: #0da2ff;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 5px 0 0 #0c8ad8;
+  transition: 0.3s;
+}
+.custom-menu button:hover {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+.custom-menu textarea {
+  border: 1px solid #ccc;
+  outline: none;
+  resize: vertical;
+  min-height: 150px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+.custom-menu.active {
+  display: flex;
+}
+
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: linear-gradient(45deg, rgb(103, 44, 180), rgb(238, 52, 238));
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+#loading svg {
+  width: 100px;
+}
+#loading.active {
+  display: flex;
+}
+
+#edit-json-menu #json-text {
+  width: 600px;
+  border: 1px solid #ccc;
+  outline: none;
+  height: fit-content;
+  resize: vertical;
+  min-height: 500px;
+  padding: 20px;
+  font-size: 18px;
+}
+
+#progress-bar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  height: 4px;
+  background-color: #0da2ff;
+  transition: 0.3s;
+}
+
+#toggle-mood {
+  width: 25px;
+  height: 25px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#toggle-mood svg {
+  position: absolute;
+  height: 100%;
+  transition: 0.2s;
+}
+#toggle-mood .moon {
+  fill: #91a3b0;
+}
+#toggle-mood .sun {
+  fill: #fdb813;
+}
+#toggle-mood.dark .sun {
+  opacity: 0;
+}
+#toggle-mood.light .moon {
+  opacity: 0;
+}
+
+body.dark {
+  background-color: #111;
+}
+body.dark #progress-bar {
+  height: 4px;
+  z-index: 5;
+}
+body.dark header {
+  background-color: #111;
+}
+body.dark #tasks .task {
+  background-color: #111;
+}
+body.dark #tasks .task h3 {
+  color: #fff;
+}
+body.dark #tasks .task .box {
+  border-color: #fff;
+}
+body.dark #tasks .task .copy-id svg {
+  fill: rgb(37, 37, 37);
+}
+body.dark #tasks .task .copy-id svg:hover {
+  fill: #eee;
+}
+
+#prize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  background-color: transparent;
+  border: none;
+  margin: 0 20px;
+  cursor: pointer;
+}
+#prize svg {
+  fill: gold;
+}
+
+#prize-menu {
+  max-width: 1000px;
+}
+#prize-menu h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+#prize-menu img {
+  min-height: 500px;
+  max-height: 600px;
+}
+#prize-menu p {
+  line-height: 1.5;
+  color: #222;
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */
